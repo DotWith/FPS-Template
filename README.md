@@ -1,2 +1,2 @@
-# FPS-Template
- A simple FPS Template made in Godot 4
+# FPS Template
+A simple FPS Template made in Godot 4
