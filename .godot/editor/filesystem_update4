@@ -1,0 +1,7 @@
+res://player.tscn
+res://menu.tscn
+res://game.tscn
+res://players.tscn
+res://player.gd
+res://ui_test.gd
+res://player_ui.gd
