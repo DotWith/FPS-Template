@@ -1,33 +1,40 @@
-[gd_scene load_steps=8 format=3 uid="uid://cr6ffh7gf8t8a"]
+[gd_scene load_steps=9 format=3 uid="uid://c1sqjp53xa2o6"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_7y45r"]
-[ext_resource type="Script" path="res://player_ui.gd" id="2_nkm5k"]
+[ext_resource type="Script" path="res://characters/player.gd" id="1_lkpdo"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_pjj51"]
 height = 3.0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_70bn7"]
+albedo_color = Color(0, 0, 0, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_7rgpk"]
+material = SubResource("StandardMaterial3D_70bn7")
 size = Vector3(0.7, 0.3, 0.3)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ljbwo"]
 height = 3.0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7qxxs"]
+albedo_color = Color(1, 0, 0, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_yc5xj"]
+material = SubResource("StandardMaterial3D_7qxxs")
 size = Vector3(0.25, 0.25, 1)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_th1rk"]
-properties/0/path = NodePath(".:rotation")
+properties/0/path = NodePath("..:synced_rotation")
 properties/0/spawn = true
 properties/0/sync = true
-properties/1/path = NodePath(".:position")
+properties/1/path = NodePath("..:health")
 properties/1/spawn = true
 properties/1/sync = true
-properties/2/path = NodePath("Head:rotation")
+properties/2/path = NodePath("..:position")
 properties/2/spawn = true
 properties/2/sync = true
 
 [node name="Player" type="CharacterBody3D"]
-script = ExtResource("1_7y45r")
+script = ExtResource("1_lkpdo")
 
 [node name="Body" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_pjj51")
@@ -51,21 +58,6 @@ target_position = Vector3(0, 0, -1000)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.196004, -0.351474, -0.783282)
 mesh = SubResource("BoxMesh_yc5xj")
 
-[node name="UI" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-script = ExtResource("2_nkm5k")
-
-[node name="Health" type="Label" parent="UI"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -45.0
-offset_right = 65.0
-grow_vertical = 0
-theme_override_font_sizes/font_size = 30
-text = "100"
-vertical_alignment = 2
-metadata/_edit_layout_mode = 1
-
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+root_path = NodePath(".")
 replication_config = SubResource("SceneReplicationConfig_th1rk")

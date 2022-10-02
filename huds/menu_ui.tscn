@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://huds/menu_ui.gd" id="1_qf42l"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oi46e"]
+font_size = 29
+
+[node name="Menu_UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qf42l")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.5
+offset_top = -50.5
+offset_right = 180.5
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_layout_mode = 1
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+offset_right = 361.0
+offset_bottom = 43.0
+text = "FPS Template"
+label_settings = SubResource("LabelSettings_oi46e")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CreateServer" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+offset_top = 47.0
+offset_right = 361.0
+offset_bottom = 78.0
+text = "Create Server"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+offset_top = 82.0
+offset_right = 361.0
+offset_bottom = 86.0
+
+[node name="IPAddress" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+offset_top = 90.0
+offset_right = 361.0
+offset_bottom = 121.0
+text = "localhost"
+placeholder_text = "Enter IP Address"
+
+[node name="JoinServer" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+offset_top = 125.0
+offset_right = 361.0
+offset_bottom = 156.0
+text = "Join Server"
+
+[connection signal="pressed" from="VBoxContainer/CreateServer" to="." method="_on_create_server_pressed"]
+[connection signal="pressed" from="VBoxContainer/JoinServer" to="." method="_on_join_server_pressed"]

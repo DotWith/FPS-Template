@@ -7,57 +7,59 @@ const MOUSE_SENSETIVITY = 0.3
 # Get the gravity from the project settings to be synced with RigidDynamicBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-var health = 100
-var damage = 25
-
-@onready
-var ui = $UI
-
 @onready
 var head = $Head
 
 @onready
 var raycast = $Head/Camera3D/RayCast3D
 
+@export
+var synced_rotation: Vector2
+
+@export
+var health := 100.0
+
 func _ready():
-	if is_multiplayer_authority():
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	set_multiplayer_authority(str(name).to_int())
 	
 	$Body.visible = !is_multiplayer_authority()
 	$Head/Camera3D.current = is_multiplayer_authority()
 	
-	ui.visible = is_multiplayer_authority()
-	ui.health = health
+	if is_multiplayer_authority():
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
-	if is_multiplayer_authority():
-		# Get mouse input for camera rotation
-		if event is InputEventMouseMotion:
-			rotate_y(deg2rad(-event.relative.x * MOUSE_SENSETIVITY))
-			head.rotate_x(deg2rad(-event.relative.y * MOUSE_SENSETIVITY))
-			head.rotation.x = clamp(head.rotation.x, deg2rad(-89), deg2rad(89))
+	if not is_multiplayer_authority():
+		return
+	
+	# Get mouse input for camera rotation
+	if event is InputEventMouseMotion:
+		rotate_y(deg_to_rad(-event.relative.x * MOUSE_SENSETIVITY))
+		head.rotate_x(deg_to_rad(-event.relative.y * MOUSE_SENSETIVITY))
+		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-89), deg_to_rad(89))
+		synced_rotation = Vector2(head.rotation.x, rotation.y)
 
 func _process(_delta):
 	if not is_multiplayer_authority():
+		head.rotation.x = synced_rotation.x
+		rotation.y = synced_rotation.y
 		return
 	
 	if Input.is_action_just_pressed("fire"):
 		if raycast.is_colliding():
 			var target = raycast.get_collider()
 			if target.has_method("take_damage"):
-				target.rpc(&"take_damage", damage)
+				target.take_damage.rpc(25)
 	
 	if Input.is_action_just_pressed("take_damage"):
-		rpc(&"take_damage", damage)
+		take_damage.rpc(45)
 
-@rpc(any_peer, call_local)
-func take_damage(_damage):
-	if health > 0:
-		health -= _damage
-		ui.health = health
-	else:
-		health = 0
-		ui.health = health
+@rpc(call_local, any_peer, reliable)
+func take_damage(damage):
+	health -= damage
+	
+	if is_multiplayer_authority():
+		Global.update_health.emit(health)
 
 func _physics_process(delta):
 	if not is_multiplayer_authority():

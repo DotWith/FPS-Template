@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://bklnjfc4quwkv"]
+
+[ext_resource type="Script" path="res://huds/player_ui.gd" id="1_k0ie5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ou6b"]
+bg_color = Color(0.658824, 0.160784, 0.203922, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3dfip"]
+bg_color = Color(0.403922, 0.682353, 0.294118, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hvlfc"]
+bg_color = Color(0.980392, 0.980392, 0.980392, 1)
+
+[node name="Player_UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k0ie5")
+
+[node name="Health" type="ProgressBar" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+offset_right = 270.0
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_6ou6b")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3dfip")
+value = 100.0
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.5
+offset_top = -4.5
+offset_right = 4.5
+offset_bottom = 4.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hvlfc")
