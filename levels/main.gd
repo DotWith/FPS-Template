@@ -32,9 +32,12 @@ func start_network_client(address: String):
 	$Menu_UI.hide()
 
 func create_player(id):
+	var spawn_points = get_node("SpawnPoints").get_children()
+	var spawn_pos = spawn_points[randi() % spawn_points.size()].global_position
 	var p = Player.instantiate()
 	p.name = str(id)
 	$Players.add_child(p)
+	p.set_position_with_rpc.rpc(spawn_pos)
 
 func destroy_player(id):
 	$Players.get_node(str(id)).queue_free()

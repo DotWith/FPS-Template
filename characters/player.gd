@@ -50,16 +50,6 @@ func _process(_delta):
 			var target = raycast.get_collider()
 			if target.has_method("take_damage"):
 				target.take_damage.rpc(25)
-	
-	if Input.is_action_just_pressed("take_damage"):
-		take_damage.rpc(45)
-
-@rpc(call_local, any_peer, reliable)
-func take_damage(damage):
-	health -= damage
-	
-	if is_multiplayer_authority():
-		Global.update_health.emit(health)
 
 func _physics_process(delta):
 	if not is_multiplayer_authority():
@@ -86,3 +76,15 @@ func _physics_process(delta):
 
 	# Local movement
 	move_and_slide()
+
+# RPCs
+@rpc(call_local, any_peer, reliable)
+func take_damage(damage):
+	health -= damage
+	
+	if is_multiplayer_authority():
+		Global.update_health.emit(health)
+
+@rpc(call_local, any_peer, reliable)
+func set_position_with_rpc(new_position):
+	position = new_position
