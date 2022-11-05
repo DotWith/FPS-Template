@@ -19,9 +19,10 @@ var synced_rotation: Vector2
 @export
 var health := 100.0
 
-func _ready():
+func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
-	
+
+func _ready():
 	$Body.visible = !is_multiplayer_authority()
 	$Head/Camera3D.current = is_multiplayer_authority()
 	

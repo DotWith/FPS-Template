@@ -23,13 +23,13 @@ material = SubResource("StandardMaterial3D_7qxxs")
 size = Vector3(0.25, 0.25, 1)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_th1rk"]
-properties/0/path = NodePath("..:synced_rotation")
+properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/sync = true
-properties/1/path = NodePath("..:health")
+properties/1/path = NodePath(".:synced_rotation")
 properties/1/spawn = true
 properties/1/sync = true
-properties/2/path = NodePath("..:position")
+properties/2/path = NodePath(".:health")
 properties/2/spawn = true
 properties/2/sync = true
 
@@ -54,10 +54,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 [node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
 target_position = Vector3(0, 0, -1000)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Head"]
+[node name="Weapon" type="MeshInstance3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.196004, -0.351474, -0.783282)
 mesh = SubResource("BoxMesh_yc5xj")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-root_path = NodePath(".")
 replication_config = SubResource("SceneReplicationConfig_th1rk")
