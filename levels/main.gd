@@ -1,6 +1,8 @@
 extends Node
 
-const Player = preload("res://characters/player.tscn")
+
+const PLAYER = preload("res://characters/player.tscn")
+
 
 func start_network_server():
 	var peer = ENetMultiplayerPeer.new()
@@ -34,7 +36,7 @@ func start_network_client(address: String):
 func create_player(id):
 	var spawn_points = get_node("SpawnPoints").get_children()
 	var spawn_pos = spawn_points[randi() % spawn_points.size()].global_position
-	var p = Player.instantiate()
+	var p = PLAYER.instantiate()
 	p.name = str(id)
 	$Players.add_child(p)
 	p.set_position_with_rpc.rpc(spawn_pos)

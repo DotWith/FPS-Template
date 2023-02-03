@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const MOUSE_SENSETIVITY = 0.3
@@ -7,17 +8,12 @@ const MOUSE_SENSETIVITY = 0.3
 # Get the gravity from the project settings to be synced with RigidDynamicBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-@onready
-var head = $Head
+@onready var head = $Head
+@onready var raycast = $Head/Camera3D/RayCast3D
 
-@onready
-var raycast = $Head/Camera3D/RayCast3D
+@export var synced_rotation: Vector2
+@export var health := 100.0
 
-@export
-var synced_rotation: Vector2
-
-@export
-var health := 100.0
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
@@ -75,17 +71,18 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
-	# Local movement
 	move_and_slide()
 
-# RPCs
-@rpc(call_local, any_peer, reliable)
+
+#----------------- RPCs -----------------
+
+@rpc("call_local", "any_peer", "reliable")
 func take_damage(damage):
 	health -= damage
 	
 	if is_multiplayer_authority():
 		Global.update_health.emit(health)
 
-@rpc(call_local, any_peer, reliable)
+@rpc("call_local", "any_peer", "reliable")
 func set_position_with_rpc(new_position):
 	position = new_position

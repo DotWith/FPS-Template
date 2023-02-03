@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://levels/main.gd" id="1_1h0i5"]
 [ext_resource type="PackedScene" uid="uid://bklnjfc4quwkv" path="res://huds/player_ui.tscn" id="2_lssm6"]
-[ext_resource type="PackedScene" path="res://huds/menu_ui.tscn" id="3_ls847"]
+[ext_resource type="PackedScene" uid="uid://dbx0cirw8qfio" path="res://huds/menu_ui.tscn" id="3_ls847"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4gp7v"]
 

@@ -2,27 +2,27 @@
 
 [ext_resource type="Script" path="res://characters/player.gd" id="1_lkpdo"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_pjj51"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_lvrvm"]
 height = 3.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_70bn7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_anldp"]
 albedo_color = Color(0, 0, 0, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_7rgpk"]
-material = SubResource("StandardMaterial3D_70bn7")
+[sub_resource type="BoxMesh" id="BoxMesh_ajkrk"]
+material = SubResource("StandardMaterial3D_anldp")
 size = Vector3(0.7, 0.3, 0.3)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ljbwo"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r4onv"]
 height = 3.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7qxxs"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i0fkg"]
 albedo_color = Color(1, 0, 0, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_yc5xj"]
-material = SubResource("StandardMaterial3D_7qxxs")
+[sub_resource type="BoxMesh" id="BoxMesh_7u6u7"]
+material = SubResource("StandardMaterial3D_i0fkg")
 size = Vector3(0.25, 0.25, 1)
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_th1rk"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_yese1"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/sync = true
@@ -37,14 +37,14 @@ properties/2/sync = true
 script = ExtResource("1_lkpdo")
 
 [node name="Body" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_pjj51")
+mesh = SubResource("CapsuleMesh_lvrvm")
 
 [node name="Eyes" type="MeshInstance3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.464937)
-mesh = SubResource("BoxMesh_7rgpk")
+mesh = SubResource("BoxMesh_ajkrk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_ljbwo")
+shape = SubResource("CapsuleShape3D_r4onv")
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -56,7 +56,7 @@ target_position = Vector3(0, 0, -1000)
 
 [node name="Weapon" type="MeshInstance3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.196004, -0.351474, -0.783282)
-mesh = SubResource("BoxMesh_yc5xj")
+mesh = SubResource("BoxMesh_7u6u7")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_th1rk")
+replication_config = SubResource("SceneReplicationConfig_yese1")

@@ -1,5 +1,6 @@
 extends Control
 
+
 func _ready():
 	Global.update_health.connect(self._update_health)
 
